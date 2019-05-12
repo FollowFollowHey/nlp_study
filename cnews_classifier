@@ -62,7 +62,7 @@ def build_vocab(train_dir, vocab_dir, vocab_size=5000):
     for content in data_train:
         all_data.extend(content)
 
-    counter = Counter(all_data)
+    counter = Counter(all_data) ##Counter类用来跟踪值出现的次数
     count_pairs = counter.most_common(vocab_size - 1)
     words, _ = list(zip(*count_pairs))
     # 添加一个 <PAD> 来将所有文本pad为同一长度
@@ -76,18 +76,14 @@ def read_vocab(vocab_dir):
     with open_file(vocab_dir) as fp:
         # 如果是py2 则每个值都转化为unicode
         words = [native_content(_.strip()) for _ in fp.readlines()]
-    word_to_id = dict(zip(words, range(len(words))))
+    word_to_id = dict(zip(words, range(len(words)))) ##zip() 函数用于将可迭代的对象作为参数，将对象中对应的元素打包成一个个元组，然后返回由这些元组组成的列表
     return words, word_to_id
 
 
-def read_category():
-    """读取分类目录，固定"""
+def read_category()：
     categories = ['体育', '财经', '房产', '家居', '教育', '科技', '时尚', '时政', '游戏', '娱乐']
-
     categories = [native_content(x) for x in categories]
-
     cat_to_id = dict(zip(categories, range(len(categories))))
-
     return categories, cat_to_id
 
 
